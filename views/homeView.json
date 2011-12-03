@@ -1,0 +1,21 @@
+{
+    "style": {
+        "background-color": "white",
+        "border": 10
+    },
+
+    "contents": [
+        {
+            "name": "image",
+            "control": "ImageView",
+            "style": {
+
+                "width": "fill-parent",
+                "height": "fill-parent"
+
+            }
+        }
+
+
+    ]
+}
