@@ -17,12 +17,13 @@ _.extend(exports, {
 //        this.get('image').src(app.resourceURL('logo.png'));
         var view = this;
         setTimeout(function() {
-//            view.clear();
             view.get('image').resource('A');
+//            view.clear();
 
         }, 500);
 
     },
+
 
     ':resized'
         :
