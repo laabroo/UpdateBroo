@@ -1,53 +1,46 @@
 {
     "style": {
         "background-color": "white",
-        "border": 10
+        "border": 10,
+        "overflow":"auto"
     },
 
     "contents": [
         {
             "name": "title",
             "control": "TextView",
-            "label": "UpdateBroo",
             "style": {
                 "color": "black",
                 "width": "fill-parent",
                 "height": "wrap-content",
                 "align": "center",
-                "valign": "top"
+                "valign": "top",
+                "font-weight" : "bold",
+                "font-size" : "large",
+                "background-color" : "#00BFFF"
             }
         },
-        {
-            "name": "labelName",
-            "control": "TextView",
-            "label": "",
-            "style": {
 
-                "width": "fill-parent",
-                "height": "wrap-content"
-            }
-
-        },
         {
             "name": "labelFacebook",
             "control": "TextView",
-            "label": "",
+          
             "style": {
-
+        
                 "width": "fill-parent",
                 "height": "wrap-content"
-
+        
             }
         },
         {
             "name": "labelTwitter",
             "control": "TextView",
-            "label": "",
+           
             "style": {
-
+        
                 "width": "fill-parent",
                 "height": "wrap-content"
-
+        
             }
         },
         {
@@ -73,14 +66,14 @@
             }
         },
         {
-            "name": "labelCute ",
+            "name": "labelCute",
             "control": "TextView",
-            "label": "",
+        
             "style": {
-
+        
                 "width": "fill-parent",
                 "height": "wrap-content"
-
+        
             }
         },
         {
@@ -95,7 +88,7 @@
             }
         },
         {
-            "name": "labelhobby",
+            "name": "labelHobby",
             "control": "TextView",
             "label": "",
             "style": {

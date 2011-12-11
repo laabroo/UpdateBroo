@@ -21,31 +21,57 @@ var headers = {
 /***************************** Connection Data *************************/
 app.message(function(client, action, data) {
     console.log('Action : ' + action);
-    console.log('Data : ' + data.text);
-});
+    console.log('Data : ' + data);
+    //});
+    /***************************** Implementasi *************************/
 
-/***************************** Implementasi *************************/
+    var site = http.createClient(siteUrl.port || 80, siteUrl.host);
+    var request = site.request('GET', siteUrl.pathname + jam + '/' + menit, headers);
+    console.log('Url : ' + siteUrl.pathname + jam + '/' + menit);
+    request.end();
 
-var site = http.createClient(siteUrl.port || 80, siteUrl.host);
-var request = site.request('GET', siteUrl.pathname + jam + '/' + menit, headers);
-console.log('Url : ' + siteUrl.pathname + jam + '/' + menit);
-request.end();
+    var idUser = null;
 
-var idUser = null;
+    request.on('response', function(response) {
+        response.setEncoding('utf8');
+        console.log('Status : ' + response.statusCode);
+        response.on('data', function(data) {
+            console.log(data);
+            var dataJSON = JSON.parse(data);
+            console.log(dataJSON);
+            console.log('Firstname : ' + dataJSON.firstname);
+            console.log('Lastname : ' + dataJSON.lastname);
+            console.log('Birthday : ' + dataJSON.birthday);
+            console.log('Location : ' + dataJSON.location);
+            console.log('Occupation : ' + dataJSON.occupation);
+            console.log('Hobby : ' + dataJSON.hobby);
+            console.log('Cute : ' + dataJSON.cute);
+            console.log('Facebook : ' + dataJSON.facebook);
+            console.log('Twitter : ' + dataJSON.twitter);
 
-request.on('response', function(response) {
-    response.setEncoding('utf8');
-    console.log('Status : ' + response.statusCode);
-    response.on('data', function(data) {
-        console.log(data);
-        var dataJSON = JSON.parse(data);
+            client.msg('getdetails', {
+                text: {
+                    firstname: dataJSON.firstname,
+                    lastname: dataJSON.lastname,
+                    birthday: dataJSON.birthday,
+                    location: dataJSON.location,
+                    occupation: dataJSON.occupation,
+                    hobby: dataJSON.hobby,
+                    cute: dataJSON.cute,
+                    facebook: dataJSON.facebook,
+                    twitter: dataJSON.twitter
 
-        idUser = dataJSON.id;
+                }
+            });
+
+            idUser = dataJSON.id;
+            console.log('ID User: ' + dataJSON.id);
 
 
-        console.log('ID User: ' + dataJSON.id);
+        });
+
+
     });
-
 
 });
 
@@ -78,8 +104,6 @@ app.setResourceHandler(function(request, response) {
 
 
 });
-
-
 
 
 log.info('Hello from backend bootstrap.');

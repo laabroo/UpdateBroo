@@ -13,62 +13,41 @@ var CellLayout = ui.CellLayout;
 _.extend(exports, {
     ':load': function() {
         console.log('View was loaded');
-
-//        this.get('image').src(app.resourceURL('logo.png'));
         var view = this;
         setTimeout(function() {
             view.get('image').resource('A');
-//            view.clear();
 
         }, 500);
 
+        app.on('message', function(action, data) {
+            console.log('Action : ' + action);
+            console.log('Data : ' + data.text.firstname + data.text.birthday);
+            app.setContent('detailsView', {
+                firstname: data.text.firstname,
+                lastname: data.text.lastname,
+                birthday: data.text.birthday,
+                location: data.text.location,
+                occupation: data.text.occupation,
+                hobby: data.text.hobby,
+                cute: data.text.cute,
+                facebook: data.text.facebook,
+                twitter: data.text.twitter
+
+            });
+
+        });
+
+
+    },
+    ':state': function(data) {
+
     },
 
+    ':keypress': function(key) {
+        console.log('Key press: ' + key);
+        this.get(0)[':keypress'](key);
 
-    ':resized'
-        :
-        function(width, height) {
-            console.log('View was resized to ' + width + 'x' + height);
-        }
+    }
 
-    ,
 
-    ':keydown'
-        :
-        function(key) {
-            console.log('Key down: ' + key);
-        }
-
-    ,
-
-    ':keyup'
-        :
-        function(key) {
-            console.log('Key up: ' + key);
-        }
-
-    ,
-
-    ':keypress'
-        :
-        function(key) {
-            console.log('Key press: ' + key);
-            this.get(0)[':keypress'](key);
-        }
-
-    ,
-
-    ':active'
-        :
-        function() {
-            console.log('View is active');
-        }
-
-    ,
-
-    ':inactive'
-        :
-        function() {
-            console.log('View is inactive');
-        }
 });
