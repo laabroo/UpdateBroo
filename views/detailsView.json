@@ -17,7 +17,8 @@
                 "valign": "top",
                 "font-weight" : "bold",
                 "font-size" : "large",
-                "background-color" : "#00BFFF"
+                "background-color" : "#00BFFF",
+                "border" : "5 0 5 0"
             }
         },
 
@@ -28,7 +29,8 @@
             "style": {
         
                 "width": "fill-parent",
-                "height": "wrap-content"
+                "height": "wrap-content",
+                "border" : "10 0 0 0"
         
             }
         },
