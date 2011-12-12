@@ -22,11 +22,91 @@ _.extend(exports, {
 
             app.msg('getdetails', text);
             console.log('Pesan yang dikirim : ' + app.msg('getdetails'));
+
+        });
+
+        app.on('message', function(action, data) {
+            console.log('Data baru : ' + data.text.firstname);
+            view.get('title').label(data.text.firstname + ' ' + data.text.lastname);
+            view.get('labelBirthday').label('Birthday : ' + data.text.birthday);
+            view.get('labelLocation').label('Location : ' + data.text.location);
+            view.get('labelOccupation').label('Occupation : ' + data.text.occupation);
+            view.get('labelHobby').label('Hobby : ' + data.text.hobby);
+            view.get('labelCute').label('Cute : ' + data.text.cute);
+            view.get('labelTwitter').label('Twitter : ' + data.text.twitter);
+            view.get('labelFacebook').label('Facebook : ' + data.text.facebook);
+
         });
 
     },
     ':state': function(data) {
         var self = this;
+
+        self.add('title', new TextView({
+            style: {
+                width: 'fill-parent',
+                height: 'wrap-content',
+                'font-weight': 'bold',
+                "color": "black",
+                align: "center",
+                valign: "top",
+                "font-size": "large",
+                "background-color": "#00BFFF",
+                "border": "5 0 5 0"
+
+            }
+        }));
+
+        self.add('labelFacebook', new TextView({
+            style: {
+                width: 'fill-parent',
+                height: 'wrap-content'
+
+            }
+        }));
+        self.add('labelTwitter', new TextView({
+            style: {
+                width: 'fill-parent',
+                height: 'wrap-content'
+            }
+        }));
+        self.add('labelBirthday', new TextView({
+            style: {
+                width: 'fill-parent',
+                height: 'wrap-content'
+            }
+        }));
+        self.add('labelLocation', new TextView({
+            style: {
+                width: 'fill-parent',
+                height: 'wrap-content'
+
+
+            }
+        }));
+        self.add('labelCute', new TextView({
+            style: {
+                width: 'fill-parent',
+                height: 'wrap-content'
+
+
+            }
+        }));
+        self.add('labelOccupation', new TextView({
+            style: {
+                width: 'fill-parent',
+                height: 'wrap-content'
+
+
+            }
+        }));
+        self.add('labelHobby', new TextView({
+            style: {
+                width: 'fill-parent',
+                height: 'wrap-content'
+
+            }
+        }));
 
         console.log('Firstname : ' + data.firstname);
         console.log('Lastname : ' + data.lastname);
@@ -46,7 +126,6 @@ _.extend(exports, {
         self.get('labelCute').label('Cute : ' + data.cute);
         self.get('labelTwitter').label('Twitter : ' + data.twitter);
         self.get('labelFacebook').label('Facebook : ' + data.facebook);
-
     },
 
     ':keypress': function(key) {

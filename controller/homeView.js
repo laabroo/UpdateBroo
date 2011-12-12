@@ -22,18 +22,18 @@ _.extend(exports, {
         app.on('message', function(action, data) {
             console.log('Action : ' + action);
             console.log('Data : ' + data.text.firstname + data.text.birthday);
-            app.setContent('detailsView', {
-                firstname: data.text.firstname,
-                lastname: data.text.lastname,
-                birthday: data.text.birthday,
-                location: data.text.location,
-                occupation: data.text.occupation,
-                hobby: data.text.hobby,
-                cute: data.text.cute,
-                facebook: data.text.facebook,
-                twitter: data.text.twitter
-
-            });
+            //app.setContent('detailsView', {
+            //    firstname: data.text.firstname,
+            //    lastname: data.text.lastname,
+            //    birthday: data.text.birthday,
+            //    location: data.text.location,
+            //    occupation: data.text.occupation,
+            //    hobby: data.text.hobby,
+            //    cute: data.text.cute,
+            //    facebook: data.text.facebook,
+            //    twitter: data.text.twitter
+            //
+            //});
 
         });
 
