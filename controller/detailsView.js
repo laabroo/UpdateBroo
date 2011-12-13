@@ -88,7 +88,7 @@ _.extend(exports, {
         self.add('labelHobby', new TextView({
             style: {
                 width: 'fill-parent',
-               height: 'wrap-content'
+                height: 'wrap-content'
             }
         }));
         console.log('Firstname : ' + data.firstname);
@@ -112,11 +112,47 @@ _.extend(exports, {
     },
     ':keypress': function(key) {
         console.log('Key press: ' + key);
+        if (this.index === undefined) {
+            if (this.size() > 0) {
+                this.focusItem(1);
+            }
+        } else if (key === 'up' || key === 'down') {
+            var next = this.index + (key === 'up' ? -1 : 1);
+
+            if (next < 1) {
+                next = 1;
+            } else if (next > (this.size() - 1)) {
+                next = this.size() - 1;
+            }
+
+            if (this.index === next) {
+                return;
+            }
+
+            this.focusItem(next);
+        } else if (key === 'fire') {
+            this.get(this.index).emit('activate');
+        } else if (key === 'back') {
+            console.log('back');
+        }
     },
     ':active': function() {
         console.log('View is active');
     },
     ':inactive': function() {
         console.log('View is inactive');
+    },
+
+    focusItem: function(index) {
+        if (this.index !== undefined) {
+            this.get(this.index).emit('blur');
+        }
+        this.index = index;
+        this.get(index).emit('focus');
+        if (index === 1) {
+            this.scrollTop(0);
+        }
+        console.log(index);
+        this.scrollTo(index);
     }
 });
