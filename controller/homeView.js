@@ -47,7 +47,7 @@ _.extend(exports, {
     },
     ':keypress': function(key) {
         console.log('Key press: ' + key);
-        this.get(0)[':keypress'](key);
+       // this.get(0)[':keypress'](key);
 
         if (this.index === undefined) {
             if (this.size() > 0) {
@@ -68,6 +68,7 @@ _.extend(exports, {
 
             this.focusItem(next);
         } else if (key === 'fire') {
+            this.get(0)[':keypress'](key);
             this.get(this.index).emit('activate');
         } else if (key === 'back') {
             console.log('back');
