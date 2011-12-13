@@ -5,7 +5,6 @@ var InputBox = ui.InputBox;
 var ImageView = ui.ImageView;
 var Panels = require('ui/panels').Panels;
 var app = this;
-
 //Container
 var HLayout = ui.HLayout;
 var VLayout = ui.VLayout;
@@ -18,13 +17,9 @@ _.extend(exports, {
 
         app.view('detailsView').on('load', function() {
             console.log('----------------- *******************  -------------------');
-
-
             app.msg('getdetails', text);
             console.log('Pesan yang dikirim : ' + app.msg('getdetails'));
-
         });
-
         app.on('message', function(action, data) {
             console.log('Data baru : ' + data.text.firstname);
             view.get('title').label(data.text.firstname + ' ' + data.text.lastname);
@@ -35,9 +30,7 @@ _.extend(exports, {
             view.get('labelCute').label('Cute : ' + data.text.cute);
             view.get('labelTwitter').label('Twitter : ' + data.text.twitter);
             view.get('labelFacebook').label('Facebook : ' + data.text.facebook);
-
         });
-
     },
     ':state': function(data) {
         var self = this;
@@ -53,7 +46,6 @@ _.extend(exports, {
                 "font-size": "large",
                 "background-color": "#00BFFF",
                 "border": "5 0 5 0"
-
             }
         }));
 
@@ -61,7 +53,6 @@ _.extend(exports, {
             style: {
                 width: 'fill-parent',
                 height: 'wrap-content'
-
             }
         }));
         self.add('labelTwitter', new TextView({
@@ -80,34 +71,26 @@ _.extend(exports, {
             style: {
                 width: 'fill-parent',
                 height: 'wrap-content'
-
-
             }
         }));
         self.add('labelCute', new TextView({
             style: {
                 width: 'fill-parent',
                 height: 'wrap-content'
-
-
             }
         }));
         self.add('labelOccupation', new TextView({
             style: {
                 width: 'fill-parent',
                 height: 'wrap-content'
-
-
             }
         }));
         self.add('labelHobby', new TextView({
             style: {
                 width: 'fill-parent',
-                height: 'wrap-content'
-
+               height: 'wrap-content'
             }
         }));
-
         console.log('Firstname : ' + data.firstname);
         console.log('Lastname : ' + data.lastname);
         console.log('Birthday : ' + data.birthday);
@@ -127,16 +110,12 @@ _.extend(exports, {
         self.get('labelTwitter').label('Twitter : ' + data.twitter);
         self.get('labelFacebook').label('Facebook : ' + data.facebook);
     },
-
     ':keypress': function(key) {
         console.log('Key press: ' + key);
-
     },
-
     ':active': function() {
         console.log('View is active');
     },
-
     ':inactive': function() {
         console.log('View is inactive');
     }

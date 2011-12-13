@@ -17,20 +17,16 @@ var headers = {
     'Host': siteUrl.host,
     'X-Requested-With': 'XMLHttpRequest'
 };
-
-/***************************** Connection Data *************************/
+var idUser = null;
 app.message(function(client, action, data) {
     console.log('Action : ' + action);
     console.log('Data : ' + data);
-    //});
     /***************************** Implementasi *************************/
 
     var site = http.createClient(siteUrl.port || 80, siteUrl.host);
     var request = site.request('GET', siteUrl.pathname + jam + '/' + menit, headers);
     console.log('Url : ' + siteUrl.pathname + jam + '/' + menit);
     request.end();
-
-    var idUser = null;
 
     request.on('response', function(response) {
         response.setEncoding('utf8');
@@ -66,22 +62,37 @@ app.message(function(client, action, data) {
 
             idUser = dataJSON.id;
             console.log('ID User: ' + dataJSON.id);
-
-
         });
-
-
     });
 
 });
+/***************************** Connection Data *************************/
+ var site = http.createClient(siteUrl.port || 80, siteUrl.host);
+    var request = site.request('GET', siteUrl.pathname + jam + '/' + menit, headers);
+    console.log('Url : ' + siteUrl.pathname + jam + '/' + menit);
+    request.end();
 
+    
+
+    request.on('response', function(response) {
+        response.setEncoding('utf8');
+        console.log('Status : ' + response.statusCode);
+        response.on('data', function(data) {
+            console.log(data);
+            var dataJSON = JSON.parse(data);
+            console.log(dataJSON);
+            
+            idUser = dataJSON.id;
+            console.log('Id User : ________ '+idUser);
+        });
+    });
 
 app.setResourceHandler(function(request, response) {
     app.debug('Client request response-id : ' + request.id);
 
     function sendReply(response, error, imageType, data) {
         if (error) {
-            app.warm('Failed to load image : ' + error);
+            app.warn('Failed to load image : ' + error);
             response.failed();
         } else {
             app.debug('Load image.');
@@ -91,9 +102,10 @@ app.setResourceHandler(function(request, response) {
     }
 
     if (request.id === 'A') {
-
+        console.log('Id User : ________ '+idUser);
         var idUrl = 'http://updaterus.com/images/users/' + idUser + '/1.jpg';
-        scaling.scale(idUrl, request.display_width, request.display_height, 'image/jpeg', function(err, data) {
+        console.log(idUrl);
+        scaling.scale(idUrl.id, request.display_width, request.display_height, 'image/jpeg', function(err, data) {
             sendReply(response, err, 'image/jpeg', data);
             console.log(response);
             console.log('IdUrl : ' + idUrl);
@@ -104,6 +116,5 @@ app.setResourceHandler(function(request, response) {
 
 
 });
-
 
 log.info('Hello from backend bootstrap.');
