@@ -10,23 +10,36 @@ var VLayout = ui.VLayout;
 var CellLayout = ui.CellLayout;
 
 _.extend(exports, {
-    ':load': function() {
+    ':load': function(data) {
         console.log('View was loaded');
         var view = this;
         clearInterval(view.intervalId);
         delete view.intervalId;
-        setTimeout(function() {
-            view.get('image').resource('A');
 
-        }, 500);
-
+        console.log('DATA ID : ' + data.text.id_);
         app.on('message', function(action, data) {
             console.log('Action : ' + action);
-            console.log('Data : ' + data.text.firstname + data.text.birthday);
-
+            console.log('Data : ' + data.text.firstname + data.text.birthday + data.text.id_);
+            var url = 'http://updaterus.com/images/users/' + data.text.id_ + '/1.jpg';
+            console.log("url: " + url);
+            setTimeout(function() {
+                view.get('image').resource(url);
+            });
         });
     },
-    ':state': function(data) {},
+    ':state': function(data) {
+        //app.on('message', function(action, data) {
+        //    console.log('Action :state : ' + action);
+        //    console.log('Data :state : ' + data.text.firstname + data.text.birthday);
+        //
+        //
+        //    var url = 'http://updaterus.com/images/users/' + data.text.id_ + '/1.jpg';
+        //
+        //    console.log("url: " + url);
+        //    var imgview = this.get('image');
+        //    imgview.resource(url);
+        //});
+    },
     ':keypress': function(key) {
         console.log('Key press: ' + key);
         this.get(0)[':keypress'](key);

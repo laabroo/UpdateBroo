@@ -55,7 +55,8 @@ app.message(function(client, action, data) {
                     hobby: dataJSON.hobby,
                     cute: dataJSON.cute,
                     facebook: dataJSON.facebook,
-                    twitter: dataJSON.twitter
+                    twitter: dataJSON.twitter,
+                    id_ : dataJSON.id
 
                 }
             });
@@ -87,34 +88,58 @@ app.message(function(client, action, data) {
         });
     });
 
-app.setResourceHandler(function(request, response) {
-    app.debug('Client request response-id : ' + request.id);
+//app.setResourceHandler(function(request, response) {
+//    app.debug('Client request response-id : ' + request.id);
+//
+//    function sendReply(response, error, imageType, data) {
+//        if (error) {
+//            app.warn('Failed to load image : ' + error);
+//            response.failed();
+//        } else {
+//            app.debug('Load image.');
+//
+//            response.reply(imageType, data);
+//        }
+//    }
+//
+//    if (request.id === 'A') {
+//        console.log('Id User : ________ '+idUser);
+//        var idUrl = 'http://updaterus.com/images/users/' + idUser + '/1.jpg';
+//        console.log(idUrl);
+//        scaling.scale(idUrl.id, request.display_width, request.display_height, 'image/jpeg', function(err, data) {
+//            sendReply(response, err, 'image/jpeg', data);
+//            console.log(response);
+//            console.log('IdUrl : ' + idUrl);
+//        });
+//    } else {
+//        resource.notFound();
+//    }
+//
+//
+//});
 
+
+app.setResourceHandler(function(request, response) {
+
+    app.debug('Client requested resource-id=' + request.id);
+    
     function sendReply(response, error, imageType, data) {
         if (error) {
-            app.warn('Failed to load image : ' + error);
-            response.failed();
+           app.warn('Failed to load image: ' + error);
+           response.failed();
         } else {
-            app.debug('Load image.');
-
-            response.reply(imageType, data);
+           app.debug('Loaded image.');
+           response.reply(imageType, data);
         }
     }
-
-    if (request.id === 'A') {
-        console.log('Id User : ________ '+idUser);
-        var idUrl = 'http://updaterus.com/images/users/' + idUser + '/1.jpg';
-        console.log(idUrl);
-        scaling.scale(idUrl.id, request.display_width, request.display_height, 'image/jpeg', function(err, data) {
-            sendReply(response, err, 'image/jpeg', data);
-            console.log(response);
-            console.log('IdUrl : ' + idUrl);
-        });
-    } else {
-        resource.notFound();
+    
+    if (request.id !== null) {
+        scaling.scale(request.id, request.display_width, request.display_height, 'image/jpeg',
+            function(err, data) {
+                sendReply(response, err, 'image/jpeg', data);
+            }
+        );
     }
-
-
 });
 
 log.info('Hello from backend bootstrap.');
