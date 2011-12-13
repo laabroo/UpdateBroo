@@ -33,17 +33,7 @@ _.extend(exports, {
 
     },
     ':state': function(data) {
-        //app.on('message', function(action, data) {
-        //    console.log('Action :state : ' + action);
-        //    console.log('Data :state : ' + data.text.firstname + data.text.birthday);
-        //
-        //
-        //    var url = 'http://updaterus.com/images/users/' + data.text.id_ + '/1.jpg';
-        //
-        //    console.log("url: " + url);
-        //    var imgview = this.get('image');
-        //    imgview.resource(url);
-        //});
+
         console.log('DATA ID : ' + data.text.id_);
         app.on('message', function(action, data) {
             var url = 'http://updaterus.com/images/users/' + data.text.id_ + '/1.jpg';
