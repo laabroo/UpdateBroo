@@ -11,10 +11,19 @@ var CellLayout = ui.CellLayout;
 
 var TAG = "homeView";
 
+function getUrl() {
+    var url = '';
+    app.on('message', function(action, data) {
+        url = 'http://updaterus.com/images/users/' + data.text.id_ + '/1.jpg';
+        console.log("url: " + url);
+    });
+    return url;
+}
 _.extend(exports, {
     ':load': function() {
         console.log('View was loaded');
         var view = this;
+        var url = "";
         clearInterval(view.intervalId);
         delete view.intervalId;
 
@@ -22,13 +31,15 @@ _.extend(exports, {
             console.log(TAG + ' : ---------------- *******************  -------------------');
             app.msg('getdetails', text);
             app.on('message', function(action, data) {
-                var url = 'http://updaterus.com/images/users/' + data.text.id_ + '/1.jpg';
+                url = 'http://updaterus.com/images/users/' + data.text.id_ + '/1.jpg';
                 console.log("url: " + url);
                 setTimeout(function() {
                     view.get('image').resource(url);
                 }, 500);
             });
         });
+
+        console.log('New url : ' + getUrl());
         console.log('DATA ID : ' + data.text.id_);
 
     },
@@ -47,8 +58,7 @@ _.extend(exports, {
     },
     ':keypress': function(key) {
         console.log('Key press: ' + key);
-       // this.get(0)[':keypress'](key);
-
+        // this.get(0)[':keypress'](key);
         if (this.index === undefined) {
             if (this.size() > 0) {
                 this.focusItem(1);
@@ -68,24 +78,24 @@ _.extend(exports, {
 
             this.focusItem(next);
         } else if (key === 'fire') {
-            this.get(0)[':keypress'](key);
-            this.get(this.index).emit('activate');
+            //this.get(this.index).emit('activate');
+            console.log(key);
         } else if (key === 'back') {
             console.log('back');
         }
 
     },
-    
+
     focusItem: function(index) {
-		if (this.index !== undefined) {
-			this.get(this.index).emit('blur');
-		}
-		this.index = index;
-		this.get(index).emit('focus');
-		if (index === 1) {
-			this.scrollTop(0);
-		}
-		console.log(index);
-		this.scrollTo(index);
-	}
+        if (this.index !== undefined) {
+            this.get(this.index).emit('blur');
+        }
+        this.index = index;
+        //this.get(index).emit('focus');
+        if (index === 1) {
+            this.scrollTop(0);
+        }
+        console.log(index);
+        this.scrollTo(index);
+    }
 });

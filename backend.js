@@ -21,8 +21,9 @@ var idUser = null;
 app.message(function(client, action, data) {
     console.log('Action : ' + action);
     console.log('Data : ' + data);
+
     /***************************** Implementasi *************************/
-setTimeout(function(){
+
     var site = http.createClient(siteUrl.port || 80, siteUrl.host);
     var request = site.request('GET', siteUrl.pathname + jam + '/' + menit, headers);
     console.log('Url : ' + siteUrl.pathname + jam + '/' + menit);
@@ -67,8 +68,8 @@ setTimeout(function(){
     });
 },500);
 
-});
 /***************************** Connection Data *************************/
+
  var site = http.createClient(siteUrl.port || 80, siteUrl.host);
     var request = site.request('GET', siteUrl.pathname + jam + '/' + menit, headers);
     console.log('Url : ' + siteUrl.pathname + jam + '/' + menit);
