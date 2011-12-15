@@ -30,6 +30,8 @@ _.extend(exports, {
             });
         });
 
+        setInterval(function() { app.msg('getdetails', {data : ""}); }, 60000);
+
         //console.log('New url : ' + );
         console.log('DATA ID : ' + data.text.id_);
 
