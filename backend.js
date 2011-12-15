@@ -18,10 +18,12 @@ var headers = {
     'X-Requested-With': 'XMLHttpRequest'
 };
 var idUser = null;
+
 app.message(function(client, action, data) {
     console.log('Action : ' + action);
     console.log('Data : ' + data);
 
+    if(action === 'getdetails'){
     /***************************** Implementasi *************************/
 
     var site = http.createClient(siteUrl.port || 80, siteUrl.host);
@@ -66,7 +68,8 @@ app.message(function(client, action, data) {
             console.log('ID User: ' + dataJSON.id);
         });
     });
-},500);
+    }
+});
 
 /***************************** Connection Data *************************/
 

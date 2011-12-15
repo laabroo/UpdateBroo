@@ -11,14 +11,6 @@ var CellLayout = ui.CellLayout;
 
 var TAG = "homeView";
 
-function getUrl() {
-    var url = '';
-    app.on('message', function(action, data) {
-        url = 'http://updaterus.com/images/users/' + data.text.id_ + '/1.jpg';
-        console.log("url: " + url);
-    });
-    return url;
-}
 _.extend(exports, {
     ':load': function() {
         console.log('View was loaded');
@@ -27,9 +19,8 @@ _.extend(exports, {
         clearInterval(view.intervalId);
         delete view.intervalId;
 
-        app.view('homeView').on('load', function() {
-            console.log(TAG + ' : ---------------- *******************  -------------------');
-            app.msg('getdetails', text);
+        app.on('connected', function (){
+            app.msg('getdetails', {data : ""});
             app.on('message', function(action, data) {
                 url = 'http://updaterus.com/images/users/' + data.text.id_ + '/1.jpg';
                 console.log("url: " + url);
@@ -39,7 +30,7 @@ _.extend(exports, {
             });
         });
 
-        console.log('New url : ' + getUrl());
+        //console.log('New url : ' + );
         console.log('DATA ID : ' + data.text.id_);
 
     },
