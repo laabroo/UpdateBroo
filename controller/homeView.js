@@ -19,18 +19,23 @@ _.extend(exports, {
         clearInterval(view.intervalId);
         delete view.intervalId;
 
-        app.on('connected', function (){
+        app.on('connected', function () {
             app.msg('getdetails', {data : ""});
             app.on('message', function(action, data) {
-                url = 'http://updaterus.com/images/users/' + data.text.id_ + '/1.jpg';
-                console.log("url: " + url);
-                setTimeout(function() {
-                    view.get('image').resource(url);
-                }, 500);
+                if (action === 'getdetails') {
+                    console.log('ID User : ===> ' + data.text.id_);
+                    url = 'http://updaterus.com/images/users/' + data.text.id_ + '/1.jpg';
+                    console.log("url: " + url);
+                    setTimeout(function() {
+                        view.get('image').resource(url);
+                    }, 500);
+                }
             });
         });
 
-        setInterval(function() { app.msg('getdetails', {data : ""}); }, 60000);
+        setInterval(function() {
+            app.msg('getdetails', {data : ""});
+        }, 6000);
 
         //console.log('New url : ' + );
         console.log('DATA ID : ' + data.text.id_);
