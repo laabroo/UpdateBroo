@@ -10,27 +10,33 @@ var HLayout = ui.HLayout;
 var VLayout = ui.VLayout;
 var CellLayout = ui.CellLayout;
 
+var TAG = 'Details-View';
+
 _.extend(exports, {
     ':load': function() {
         var view = this;
         console.log('View was loaded');
 
-        app.view('detailsView').on('load', function() {
-            console.log('----------------- *******************  -------------------');
-            app.msg('getdetails', text);
-            console.log('Pesan yang dikirim : ' + app.msg('getdetails'));
+        app.on('connected', function() {
+
+            app.msg('getdetails', {text : ''});
+            app.on('message', function(action, data) {
+                console.log('Data baru : ' + data.text.firstname);
+                view.get('title').label(data.text.firstname + ' ' + data.text.lastname);
+                view.get('labelBirthday').label('Birthday : ' + data.text.birthday);
+                view.get('labelLocation').label('Location : ' + data.text.location);
+                view.get('labelOccupation').label('Occupation : ' + data.text.occupation);
+                view.get('labelHobby').label('Hobby : ' + data.text.hobby);
+                view.get('labelCute').label('Cute : ' + data.text.cute);
+                view.get('labelTwitter').label('Twitter : ' + data.text.twitter);
+                view.get('labelFacebook').label('Facebook : ' + data.text.facebook);
+            });
         });
-        app.on('message', function(action, data) {
-            console.log('Data baru : ' + data.text.firstname);
-            view.get('title').label(data.text.firstname + ' ' + data.text.lastname);
-            view.get('labelBirthday').label('Birthday : ' + data.text.birthday);
-            view.get('labelLocation').label('Location : ' + data.text.location);
-            view.get('labelOccupation').label('Occupation : ' + data.text.occupation);
-            view.get('labelHobby').label('Hobby : ' + data.text.hobby);
-            view.get('labelCute').label('Cute : ' + data.text.cute);
-            view.get('labelTwitter').label('Twitter : ' + data.text.twitter);
-            view.get('labelFacebook').label('Facebook : ' + data.text.facebook);
-        });
+
+        setInterval(function() {
+            console.log(TAG);
+            app.msg('loadData', {data : ""});
+        }, 6000);
     },
     ':state': function(data) {
         var self = this;
