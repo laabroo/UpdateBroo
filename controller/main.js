@@ -4,8 +4,6 @@ var TextView = ui.TextView;
 var InputBox = ui.InputBox;
 var ImageView = ui.ImageView;
 var Panels = require('ui/panels').Panels;
-
-//Container
 var HLayout = ui.HLayout;
 var VLayout = ui.VLayout;
 var CellLayout = ui.CellLayout;
@@ -14,9 +12,8 @@ _.extend(exports, {
     ':load': function() {
         console.log('View was loaded');
         var p = new Panels();
-        p.add('Home', 'homeView');
+        p.add('Updaterus.com', 'homeView');
         p.add('Details', 'detailsView');
-
         this.add(p);
     },
 

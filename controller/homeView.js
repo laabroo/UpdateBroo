@@ -5,6 +5,7 @@ var InputBox = ui.InputBox;
 var ImageView = ui.ImageView;
 var Panels = require('ui/panels').Panels;
 //Container
+var Control = require('ui').Control;
 var HLayout = ui.HLayout;
 var VLayout = ui.VLayout;
 var CellLayout = ui.CellLayout;
@@ -18,40 +19,27 @@ _.extend(exports, {
         var url = "";
         clearInterval(view.intervalId);
         delete view.intervalId;
-
         app.on('connected', function () {
             app.msg('getdetails', {data : ""});
             app.on('message', function(action, data) {
                 if (action === 'getdetails') {
                     console.log('ID User : ===> ' + data.text.id_);
-                    url = 'http://updaterus.com/images/users/' + data.text.id_ + '/1.jpg';
-                    console.log("url: " + url);
-                    setTimeout(function() {
+                    console.log('Jumlah Photo : ===> ' + data.text.photos);
+                    var nPhoto = data.text.photos;
+                    for (var i = 1; i <= nPhoto; i++) {
+                        url = 'http://updaterus.com/images/users/' + data.text.id_ + '/' + i + '.jpg';
                         view.get('image').resource(url);
-                    }, 500);
+                    }
+                    url = null;
                 }
             });
         });
 
         setInterval(function() {
             app.msg('getdetails', {data : ""});
-        }, 6000);
-
-        //console.log('New url : ' + );
-        console.log('DATA ID : ' + data.text.id_);
-
+        }, 20000);
     },
     ':state': function(data) {
-
-        console.log('DATA ID : ' + data.text.id_);
-        app.on('message', function(action, data) {
-            var url = 'http://updaterus.com/images/users/' + data.text.id_ + '/1.jpg';
-            console.log("url: " + url);
-            setTimeout(function() {
-                view.get('image').resource(url);
-            }, 500);
-        });
-
 
     },
     ':keypress': function(key) {

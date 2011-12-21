@@ -22,7 +22,7 @@ _.extend(exports, {
             app.msg('getdetails', {text : ''});
             app.on('message', function(action, data) {
                 console.log('Data baru : ' + data.text.firstname);
-                view.get('title').label(data.text.firstname + ' ' + data.text.lastname);
+                view.get('title').label(data.text.firstname.toUpperCase() + ' ' + data.text.lastname.toUpperCase());
                 view.get('labelBirthday').label('Birthday : ' + data.text.birthday);
                 view.get('labelLocation').label('Location : ' + data.text.location);
                 view.get('labelOccupation').label('Occupation : ' + data.text.occupation);
@@ -36,7 +36,7 @@ _.extend(exports, {
         setInterval(function() {
             console.log(TAG);
             app.msg('loadData', {data : ""});
-        }, 6000);
+        }, 10000);
     },
     ':state': function(data) {
         var self = this;

@@ -9,9 +9,6 @@ var scaling = new (require('blaast/scaling').Scaling)();
 
 /***************************** Deklarasi *************************/
 var siteUrl = url.parse("http://updaterus.com/index/at_time/");
-var date = new Date();
-var jam = date.getHours();
-var menit = date.getMinutes();
 
 var headers = {
     'Host': siteUrl.host,
@@ -25,7 +22,10 @@ app.message(function(client, action, data) {
 
     if (action === 'getdetails') {
         /***************************** Implementasi *************************/
-
+        var date = new Date();
+        var jam = date.getHours();
+        var menit = date.getMinutes();
+        
         var site = http.createClient(siteUrl.port || 80, siteUrl.host);
         var request = site.request('GET', siteUrl.pathname + jam + '/' + menit, headers);
         console.log('Url : ' + siteUrl.pathname + jam + '/' + menit);
@@ -47,6 +47,7 @@ app.message(function(client, action, data) {
                 console.log('Cute : ' + dataJSON.cute);
                 console.log('Facebook : ' + dataJSON.facebook);
                 console.log('Twitter : ' + dataJSON.twitter);
+                console.log('Image : '+dataJSON.photos);
 
                 client.msg('getdetails', {
                     text: {
@@ -59,7 +60,8 @@ app.message(function(client, action, data) {
                         cute: dataJSON.cute,
                         facebook: dataJSON.facebook,
                         twitter: dataJSON.twitter,
-                        id_ : dataJSON.id
+                        id_ : dataJSON.id,
+                        photos:dataJSON.photos
 
                     }
                 });
@@ -72,26 +74,7 @@ app.message(function(client, action, data) {
     }
 });
 
-/***************************** Connection Data *************************/
-
-var site = http.createClient(siteUrl.port || 80, siteUrl.host);
-var request = site.request('GET', siteUrl.pathname + jam + '/' + menit, headers);
-console.log('Url : ' + siteUrl.pathname + jam + '/' + menit);
-request.end();
-
-
-request.on('response', function(response) {
-    response.setEncoding('utf8');
-    console.log('Status : ' + response.statusCode);
-    response.on('data', function(data) {
-        console.log(data);
-        var dataJSON = JSON.parse(data);
-        console.log(dataJSON);
-
-        idUser = dataJSON.id;
-        console.log('Id User : ________ ' + idUser);
-    });
-});
+/***************************** Setting Image *************************/
 
 app.setResourceHandler(function(request, response) {
 

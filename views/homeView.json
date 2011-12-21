@@ -1,7 +1,6 @@
 {
     "style": {
         "background-color": "#BDB76B",
-        "border" : 5,
         "overflow":"auto"
     },
 
