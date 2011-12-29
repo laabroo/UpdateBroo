@@ -1,11 +1,10 @@
 {
-	"style": {
-		"background-color": "white",
-		"border": 10
-	},
+    "style": {
+        "background-color": "white"
+    },
 
-	"contents": [
+    "contents": [
 
-            
-	]
+
+    ]
 }
